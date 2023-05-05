@@ -31,8 +31,15 @@ func (u UserHandler) IncrementVal(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "invalid json", http.StatusBadRequest)
 		return
 	}
+
+	if elem.Key == "" || elem.Value == 0 {
+		u.logger.Debug().Msg("The json does not match the correct type")
+		w.Header().Set("Content-Type", "text/plain")
+		http.Error(w, "The json does not match the correct type", http.StatusBadRequest)
+		return
+	}
+
 	outValue, err := u.cache.Increment(elem)
-	u.logger.Debug().Msg(elem.Key)
 	if err != nil {
 		http.Error(w, "", http.StatusBadRequest)
 		return
@@ -55,6 +62,13 @@ func (u UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		u.logger.Debug().Err(err).Msg("invalid json")
 		w.Header().Set("Content-Type", "text/plain")
 		http.Error(w, "invalid json", http.StatusBadRequest)
+		return
+	}
+
+	if user.Name == "" || user.Age == 0 {
+		u.logger.Debug().Msg("The json does not match the correct type")
+		w.Header().Set("Content-Type", "text/plain")
+		http.Error(w, "The json does not match the correct type", http.StatusBadRequest)
 		return
 	}
 
@@ -82,6 +96,13 @@ func (u UserHandler) PostSign(w http.ResponseWriter, r *http.Request) {
 		u.logger.Debug().Err(err).Msg("invalid json")
 		w.Header().Set("Content-Type", "text/plain")
 		http.Error(w, "invalid json", http.StatusBadRequest)
+		return
+	}
+
+	if getSign.Text == "" {
+		u.logger.Debug().Msg("The json does not match the correct type")
+		w.Header().Set("Content-Type", "text/plain")
+		http.Error(w, "The json does not match the correct type", http.StatusBadRequest)
 		return
 	}
 
