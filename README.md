@@ -1,7 +1,9 @@
 # zenTotem
 test for iConText group
+task: https://observant-hero-c7c.notion.site/Go-3cc65a7d7c3e44c19b2e0543a98be2d2
 
-# the following flags can be used to run the database and redis application with certain parameters
+# flags parameters
+the following flags can be used to run the database and redis application with certain parameters
 	-user default value="dobb2", description: "a user postgress"
 	-hostDB" default value="localhost", description:  "a host of postgress"
 	-password default value="root", description: "a password user postgress"
